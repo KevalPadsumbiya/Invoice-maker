@@ -1,0 +1,148 @@
+<head>
+<style>
+	td
+	{
+		padding: 2px;
+		font-size: 12px;
+		line-height: 8px;
+	}
+	tr
+	{
+		height: 23px;
+	}
+</style>
+</head>
+
+<body>
+	<center>
+		
+		<h1 style="font-size: 25px; line-height: 15px;">{{company_name}}</h1>
+		<h1 style="line-height: 10px;">{{add}}</h1>
+		<h1>TEL : {{tel}} , GSTIN : {{GSTIN}} , PAN No. : {{pan_no}}</h1>
+		<h1 style="font-size:19px;">{{invoice_type}}</h1>
+	</center>
+
+
+    <!-- HTML Content -->
+	<!-- <table style="border: 1px solid black; height: 30px;"><tr><td><h3>Tax Invoice</h3></td></tr></table>
+	<div style="width: 100%;border: 1px solid black; text-align:center;"><h1 style="margin-top: 5px;;">Tax Invoice</h1></div> -->
+	<table style="border: 1px solid black;">
+		<tr>
+			<td colspan="2">Invoice No : {{invoice_no}}</td>
+			<td>Transport Mode : {{transport_mode}}</td>
+		</tr>
+		<tr>
+			<td colspan="2">Invoice date : {{invoice_date}}</td>
+			<td>Vehicle number : {{vehicle_no}} </td>
+		</tr>
+		<tr>
+			<td colspan="2">Reverse Charge : {{reverse_charge}}</td>
+			<td>L R No. : {{lr_no}}</td>
+		</tr>
+		<tr>
+			<td>State : {{state_1}}</td>
+			<td style="width: 100px;">Code : {{code_1}}</td>
+			<td>E-WAY BILL NO : {{e_way_bill_1}}</td>
+		</tr>
+	</table>
+
+	<br>
+	<table style="border: 1px solid black;">
+		<tr>
+			<td colspan="3">CONSIGNEE NAME</td>
+			<td colspan="3">CONSIGNEE NAME</td>
+		</tr>
+		<tr>
+			<td colspan="3">Name : {{name_left}}</td>
+			<td colspan="3">Name: {{name_right}}</td>
+		</tr>
+		<tr>
+			<td colspan="3">Address : {{add_left}}</td>
+			<td colspan="3">Address : {{add_right}}</td>
+		</tr>
+		<tr>
+			<td colspan="3">GSTIN : {{gst_left}}</td>
+			<td colspan="3">GSTIN : {{gst_right}}</td>
+		</tr>
+		<tr>
+			<td colspan="2">State : {{state_left}}</td>
+			<td>Code : {{code_left}}</td>
+			<td colspan="2">State : {{state_right}}</td>
+			<td>Code : {{code_right}}</td>
+		</tr>
+		<tr>
+			<td colspan="3">E-WAY BILL NO : {{e_way_bill_left}}</td>
+			<td colspan="3">E-WAY BILL NO : {{e_way_bill_right}}</td>
+		</tr>
+	</table>
+
+	<br>
+    <table style="border: 1px solid black;">
+		<tr style="text-align: center;">
+			<td style="width: 5%;">Sr. No.</td>
+			<td style="width: 37%;">Product Description</td>
+			<td style="width: 10%;">H.S.N. Code</td>
+			<td style="width: 10%;">Grade</td>
+			<td style="width: 10%;">QTY ({{qty_type}})</td>
+			<td style="width: 13%;">Rate(Rs.)</td>
+			<td style="width: 15%;">Total</td>
+		</tr>
+		<tr style="height: 200px; text-align: center;">
+			<td style="width: 5%;">{{sr_no}}</td>
+			<td style="width: 37%; text-align: left;">{{pr_desc}}</td>
+			<td style="width: 10%;">{{hsn_code}}</td>
+			<td style="width: 10%;">{{grade}}</td>
+			<td style="width: 10%;">{{qty}}</td>
+			<td style="width: 13%;">{{rate}}</td>
+			<td style="width: 15%;">{{total}}</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="6">Total : </td>
+			<td style="width: 15%;">{{total1}}</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="6">Add: SGST @ {{SGST}} %</td>
+			<td style="width: 15%;">{{sgst}}</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="6">Add: CGST @ {{CGST}} %</td>
+			<td style="width: 15%;">{{cgst}}</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="6">Add: IGST @ {{IGST}} %</td>
+			<td style="width: 15%;">{{igst}}</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="6" >ROUND OFF AMOUNT</td>
+			<td style="width: 15%;">{{round_off}}</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="6" style="line-height: 8px;  background-color: blue; color: white;">Grand Total</td>
+			<td style="width: 15%;">{{grand_total}}</td>
+		</tr>
+		<tr style="text-align: center;">
+			<td colspan="7">Total amount in words : {{grand_total_in_words}}</td>
+		</tr>
+	</table>
+	<br>
+	<table style="border: 1px solid black;">
+		<tr style="height: 50px;">
+			<td>Bank A/C : {{acc_no}}</td>
+			<td rowspan="3" style="width:33%;"></td>
+			<td rowspan="4" style="">Ceritified that the particulars given above are true and correct<br>
+				<b style="font-size: 15px;">For {{company_name}}<br>
+				<span style="font-size: 13px;">Authorised signatory</span></b></td>
+		</tr>
+		<tr style="height: 50px;">
+			<td>Bank IFSC : {{ifsc_code}}</td>
+		</tr>
+		<tr style="height: 50px; border-bottom: none;">
+			<td>Terms & conditions</td>
+		</tr >
+		<tr style="height: 50px; border-top: none;">
+			<td style="width: 33%; border-bottom: none;">{{terms_and_cond}}</td>
+			<td style="text-align: center;">Common Seal</td>
+		</tr>
+	</table>
+</body>
+</html>

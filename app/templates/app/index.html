@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML Tp PDF</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Latest compiled and minified bootstrap CSS -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<style>
+
+		body{
+			background: #292929;
+			color: white;
+			font-family: 'Raleway', sans-serif;
+		}
+
+		.card{
+			background-color: #fff;
+			padding: 50px 50px 50px 50px;
+			margin:50px;
+		}
+		table
+		{
+			width: 95%;
+		}
+		tr,td
+		{
+			border-radius: 2px;
+			padding: 5px;
+			border: 1px solid #353535;
+		}
+		table input[type='text'],input[type='number'],textarea
+		{
+			color: black;
+			width: 80%;
+		}
+		input[type='text'],textarea,input[type='number']
+		{
+			color: black;
+			border-radius: 3px;
+			box-shadow: inset 0 0 5px;
+			border: none;
+		}
+		table
+		{
+			width: 1300px;
+		}
+		.submit_button
+		{
+			border-radius: 2px;
+			border:1px solid #353535;
+			background: #292929;
+			height: 50px;
+			width: 200px;
+			transition: 0.5s;
+		}
+
+		.submit_button:hover
+		{
+			background: #363636;
+		}
+		
+		.glow-on-hover {
+			width: 200px;
+			height: 50px;
+			border: none;
+			outline: none;
+			color: #fff;
+			border:1px solid #353535;
+			background: #292929;
+			cursor: pointer;
+			position: relative;
+			z-index: 0;
+			border-radius: 2px;
+		}
+
+		.glow-on-hover:before {
+			content: '';
+			background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+			position: absolute;
+			top: -2px;
+			left:-2px;
+			background-size: 500%;
+			z-index: -1;
+			filter: blur(5px);
+			width: calc(100% + 5px);
+			height: calc(100% + 5px);
+			animation: glowing 20s linear infinite;
+			opacity: 0;
+			transition: opacity .3s ease-in-out;
+			border-radius: 0px;
+		}
+
+		.glow-on-hover:active {
+			color: #000
+		}
+
+		.glow-on-hover:active:after {
+			background: transparent;
+		}
+
+		.glow-on-hover:hover:before {
+			opacity: 1;
+		}
+
+		.glow-on-hover:after {
+			z-index: -1;
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: #292929;
+			left: 0;
+			top: 0;
+			border-radius: 0px;
+		}
+
+		@keyframes glowing {
+			0% { background-position: 0 0; }
+			50% { background-position: 400% 0; }
+			100% { background-position: 0 0; }
+		}
+		
+	</style>
+</head>
+<!-- style="background: url('https://i.postimg.cc/BbBNdgTf/watermark.jpg');" -->
+<body>
+
+	<center>
+		<br>
+		<h1><b>INVOICE GENERATOR</b></h1>
+		<br>
+		<div style="background: #1E1E1E; width: 1400px; padding: 10px; border-radius: 5px;">
+			<form method="get" action="{% url 'pdf_view' %}" target="_blank">
+				
+				{% csrf_token %}
+
+				<h3><input type="text" placeholder="Company Name" style="text-align: center; width: 600px;" name="company_name"></h13>
+				<h5><input type="text" placeholder="Address" style="text-align: center; width: 600px;" name="add"></h5>
+				<h5>TEL : <input type="text" placeholder="+91 1234567890" style="text-align: center;" name="tel"> , 
+					GSTIN : <input type="text" placeholder="GST No." style="text-align: center;" name="GSTIN"> , 
+					PAN No. : <input type="text" placeholder="Pan No." style="text-align: center;" name="pan_no"></h5>
+				<h3><input type="text" placeholder="Tax Invoice" style="text-align: center;" name="invoice_type"></h3>
+
+
+				<!-- HTML Content -->
+				<!-- <table style="border: 1px solid black; height: 30px;"><tr><td><h3>Tax Invoice</h3></td></tr></table>
+				<div style="width: 100%;border: 1px solid black; text-align:center;"><h1 style="margin-top: 5px;;">Tax Invoice</h1></div> -->
+				<table style="border: 1px solid black;">
+					<tr>
+						<td colspan="2">Invoice No : <input type="text" placeholder="" style="text-align: center;" name="invoice_no"></td>
+						<td>Transport Mode : <input type="text" placeholder="" style="text-align: center;" name="transport_mode"></td>
+					</tr>
+					<tr>
+						<td colspan="2">Invoice date : <input type="text" placeholder="" style="text-align: center;" name="invoice_date"></td>
+						<td>Vehicle number : <input type="text" placeholder="" style="text-align: center;" name="vehicle_no"></td>
+					</tr>
+					<tr>
+						<td colspan="2">Reverse Charge : 
+							<select name="reverse_charge">
+								<option value="Yes">Yes</option>
+								<option value="No">No</option>
+							</select>
+						</td>
+						<td>L R No. : <input type="text" placeholder="" style="text-align: center;" name="lr_no"></td>
+					</tr>
+					<tr>
+						<td>State : <input type="text" placeholder="" style="text-align: center;" name="state_1"></td>
+						<td style="width: 100px;">Code : <input type="text" placeholder="" style="width:50px; text-align: center;" name="code_1"></td>
+						<td>E-WAY BILL NO : <input type="text" placeholder="" style="text-align: center;" name="e_way_bill_1"></td>
+					</tr>
+				</table>
+
+				<br>
+				<table style="border: 1px solid black;">
+					<tr style="text-align: center;">
+						<td colspan="3">CONSIGNEE NAME </td>
+						<td colspan="3">CONSIGNEE NAME </td>
+					</tr>
+					<tr>
+						<td colspan="3">Name : <input type="text" placeholder="" style="text-align: center;" name="name_left"></td>
+						<td colspan="3">Name : <input type="text" placeholder="" style="text-align: center;" name="name_right"></td>
+					</tr>
+					<tr>
+						<td colspan="3">Address :<input type="text" placeholder="" style="text-align: center;" name="add_left"></td>
+						<td colspan="3">Address : <input type="text" placeholder="" style="text-align: center;" name="add_right"></td>
+					</tr>
+					<tr>
+						<td colspan="3">GSTIN : <input type="text" placeholder="" style="text-align: center;" name="gst_left"></td>
+						<td colspan="3">GSTIN : <input type="text" placeholder="" style="text-align: center;" name="gst_right"></td>
+					</tr>
+					<tr>
+						<td colspan="2">State : <input type="text" placeholder="" style="text-align: center;" name="state_left"></td>
+						<td>Code : <input type="text" placeholder="" style="text-align: center; width: 50px;" name="code_left"></td>
+						<td colspan="2">State : <input type="text" placeholder="" style="text-align: center;" name="state_right"></td>
+						<td>Code : <input type="text" placeholder="" style="width: 50px; text-align: center;" name="code_right"></td>
+					</tr>
+					<tr>
+						<td colspan="3">E-WAY BILL NO : <input type="text" placeholder="" style="text-align: center;" name="e_way_bill_left"></td>
+						<td colspan="3">E-WAY BILL NO : <input type="text" placeholder="" style="text-align: center;" name="e_way_bill_right"></td>
+					</tr>
+				</table>
+
+				<br>
+				<table style="border: 1px solid black;">
+					<tr style="text-align: center;">
+						<td style="width: 5%;">Sr. No.</td>
+						<td style="width: 37%;">Product Description</td>
+						<td style="width: 10%;">H.S.N. Code</td>
+						<td style="width: 10%;">Grade</td>
+						<td style="width: 10%;">QTY (<input type="text" placeholder="Box" style="width: 50px; text-align: center;" name="qty_type">)</td>
+						<td style="width: 13%;">Rate(Rs.)</td>
+						<td style="width: 15%;">Total</td>
+					</tr>
+					<tr style="height: 200px; text-align: center;">
+						<td style="width: 5%;"><input type="number" value="1" style="width: 50px; text-align: center;" name="sr_no"></td>
+						<td style="width: 37%;"><textarea name="pr_desc" style="width: 95%;"></textarea></td>
+						<td style="width: 10%;"><input type="text" placeholder="" style="text-align: center; width: 96%;"  name="hsn_code"></td>
+						<td style="width: 10%;"><input type="text" placeholder="" style="text-align: center; width: 96%;"  name="grade"></td>
+						<td style="width: 10%;"><input type="number" id="qty" placeholder="" style="text-align: center; width: 96%;"  name="qty"
+							onchange oninput="cal_total()"></td>
+						<td style="width: 13%;"><input type="number" id="rate" placeholder="" style="text-align: center; width: 96%;"  name="rate"
+							onchange oninput="cal_total()"></td>
+						<td style="width: 15%;"><input type="number" id="total" placeholder="-" style="text-align: center; width: 96%;"  name="total" readonly></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td colspan="6">Total :</td>
+						<td style="width: 15%;"><input type="number" id="total1" placeholder="-" style="text-align: center;" name="total1" readonly></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td colspan="6">Add: SGST @ <input type="number" step="0.1" value=0.00 style="width: 60px; text-align: center;" id="SGST" name="SGST" onchange oninput="cal_total()"> %</td>
+						<td style="width: 15%;"><input type="number" id="sgst" placeholder="-" style="text-align: center;" name="sgst" readonly></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td colspan="6">Add: CGST @ <input type="number" step="0.1" value=0.00 style="width: 60px; text-align: center;" id="CGST" name="CGST" onchange oninput="cal_total()"> %</td>
+						<td style="width: 15%;"><input type="number" id="cgst" placeholder="-" style="text-align: center;" name="cgst" readonly></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td colspan="6">Add: IGST @ <input type="number" step="0.1" value=18.00 style="width: 60px; text-align: center;" id="IGST" name="IGST" onchange oninput="cal_total()"> %</td>
+						<td style="width: 15%;"><input type="number" id="igst" placeholder="-" style="text-align: center;" name="igst" readonly></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td colspan="6">ROUND OFF AMOUNT</td>
+						<td style="width: 15%;"><input type="number" id="round_off" placeholder="-" style="text-align: center;" name="round_off" readonly></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td colspan="6" style="background-color: blue; color: white;">Grand Total</td>
+						<td style="width: 15%;"><input type="number" id="grand_total" placeholder="-" style="text-align: center;" name="grand_total" readonly></td>
+					</tr>
+					<tr>
+						<td colspan="7">Total amount in words : <input type="text" id="grand_total_in_words" placeholder="-" style="text-align: center;" name="grand_total_in_words" readonly></td>
+					</tr>
+				</table>
+				<br>
+				<table style="border: 1px solid black;">
+					<tr style="height: 50px;">
+						<td>Bank A/C: <input type="number" style="text-align: center;" name="acc_no"></td>
+						<td rowspan="3" style="width:33%;"></td>
+						<td rowspan="4" style="">Ceritified that the particulars given above are true and correct<br>
+							<b>For Company Name<br>
+							Authorised signatory</b></td>
+					</tr>
+					<tr style="height: 50px;">
+						<td>Bank IFSC: <input type="text" style="text-align: center;" name="ifsc_code"></td>
+					</tr>
+					<tr style="height: 50px; border-bottom: none;">
+						<td style="border-bottom: none;">Terms & conditions :
+							<br><textarea name="terms_and_cond" style="width: 95%; margin-left: 2%;"></textarea>
+						</td>
+					</tr >
+					<tr style="height: 50px; border-top: none; text-align: center;">
+						<td style="width: 33%; border-top: none;"></td>
+						<td>Common Seal</td>
+					</tr>
+				</table>
+				<br>
+				<!-- <input type="button" value="View invoice" class="glow-on-hover"> -->
+				<br>
+				<button class="glow-on-hover" type="submit">View invoice</button>
+
+				<br>
+				<br>	
+			</form>
+
+			<script>
+				function cal_total() 
+				{
+					qty=document.getElementById("qty").value;
+					rate=document.getElementById("rate").value;
+					// alert('rate : '+rate+' Qty :'+qty);
+					if(qty>0 && rate>0)
+					{
+						// alert('rate : '+rate+' Qty :'+qty);
+						// var igst = (0.18)*(rate*qty);
+						var total = rate*qty;
+						var cgst=document.getElementById("CGST").value*(rate*qty)*(0.01).toFixed(2);;
+						var sgst=document.getElementById("SGST").value*(rate*qty)*(0.01).toFixed(2);;
+						var igst=document.getElementById("IGST").value*(rate*qty)*(0.01).toFixed(2);;
+
+						document.getElementById("total").value = total.toFixed(2);;
+						document.getElementById("total1").value = total.toFixed(2);;
+						document.getElementById("igst").value = igst.toFixed(2);;
+						document.getElementById("cgst").value = cgst.toFixed(2);;
+						document.getElementById("sgst").value = sgst.toFixed(2);;
+
+						var round_off = Math.round(total + igst + cgst + sgst);
+						document.getElementById("round_off").value = round_off;
+						document.getElementById("grand_total").value = round_off;
+						document.getElementById("grand_total_in_words").value = inWords(round_off);
+					}
+					else
+					{
+						document.getElementById("total").value = '-';
+						document.getElementById("total1").value = '-';
+						document.getElementById("round_off").value = '-';
+						document.getElementById("igst").value = '-';
+						document.getElementById("cgst").value = '-';
+						document.getElementById("sgst").value = '-';
+						document.getElementById("grand_total").value = '-';
+						document.getElementById("grand_total_in_words").value = '-';
+					}
+				}
+
+				var a = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
+				var b = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+
+				function inWords (num) {
+					if ((num = num.toString()).length > 9) return 'overflow';
+					n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+					if (!n) return; var str = '';
+					str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'crore ' : '';
+					str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'lakh ' : '';
+					str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'thousand ' : '';
+					str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'hundred ' : '';
+					str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
+					return str;
+				}
+
+			</script>
+		</div>
+	</center>
+	<br>
+	<br>
+</body>
+</html>
+
+
+
+
