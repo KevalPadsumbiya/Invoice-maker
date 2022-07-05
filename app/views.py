@@ -10,7 +10,7 @@ def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
 	html  = template.render(context_dict)
 	result = BytesIO()
-	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	pdf = pisa.CreatePDF(BytesIO(html.encode("UTF-8")), result)
 	if not pdf.err:
 		return HttpResponse(result.getvalue(), content_type='application/pdf')
 	return None
@@ -29,6 +29,7 @@ data = {
 	"website": "dennisivy.com",
 	}
 
+import datetime
 #Opens up page as PDF
 class ViewPDF(View):
 
@@ -36,54 +37,58 @@ class ViewPDF(View):
 	def get(self, request, *args, **kwargs):
 
 		data = {
-			"company_name" : "" + request.GET['company_name'],
-			"add" : "" + request.GET['add'],
-			"tel" : "" + request.GET['tel'],
-			"GSTIN" : "" + request.GET['GSTIN'],
-			"pan_no" : "" + request.GET['pan_no'],
-			"invoice_type" : "" + request.GET['invoice_type'],
+			"party_name" : "" + request.GET['party_name'],
+			"address" : "" + request.GET['address'],
+			# "tel" : "" + request.GET['tel'],
+			"gstno" : "" + request.GET['gstno'],
+			"date" : "" + request.GET['date'],
+			# "pan_no" : "" + request.GET['pan_no'],
+			# "invoice_type" : "" + request.GET['invoice_type'],
 			"invoice_no" : "" + request.GET['invoice_no'],
-			"transport_mode" : "" + request.GET['transport_mode'],
-			"invoice_date" : "" + request.GET['invoice_date'],
-			"vehicle_no" : "" + request.GET['vehicle_no'],
-			"reverse_charge" : "" + request.GET['reverse_charge'],
-			"lr_no" : "" + request.GET['lr_no'],
-			"state_1" : "" + request.GET['state_1'],
-			"code_1" : "" + request.GET['code_1'],
-			"e_way_bill_1" : "" + request.GET['e_way_bill_1'],
-			"name_left" : "" + request.GET['name_left'],
-			"name_right" : "" + request.GET['name_right'],
-			"add_left" : "" + request.GET['add_left'],
-			"add_right" : "" + request.GET['add_right'],
-			"gst_left" : "" + request.GET['gst_left'],
-			"gst_right" : "" + request.GET['gst_right'],
-			"state_left" : "" + request.GET['state_left'],
-			"code_left" : "" + request.GET['code_left'],
-			"state_right" : "" + request.GET['state_right'],
-			"code_right" : "" + request.GET['code_right'],
-			"e_way_bill_left" : "" + request.GET['e_way_bill_left'],
-			"e_way_bill_right" : "" + request.GET['e_way_bill_right'],
-			"qty_type" : "" + request.GET['qty_type'],
-			"sr_no" : "" + request.GET['sr_no'],
-			"pr_desc" : "" + request.GET['pr_desc'],
-			"hsn_code" : "" + request.GET['hsn_code'],
-			"grade" : "" + request.GET['grade'],
+			# "transport_mode" : "" + request.GET['transport_mode'],
+			# "invoice_date" : "" + request.GET['invoice_date'],
+			# "truck_no" : "" + request.GET['truck_no'],
+			# "reverse_charge" : "" + request.GET['reverse_charge'],
+			# "lr_no" : "" + request.GET['lr_no'],
+			# "state_1" : "" + request.GET['state_1'],
+			# "code_1" : "" + request.GET['code_1'],
+			# "e_way_bill_1" : "" + request.GET['e_way_bill_1'],
+			# "name_left" : "" + request.GET['name_left'],
+			# "name_right" : "" + request.GET['name_right'],
+			# "add_left" : "" + request.GET['add_left'],
+			# "add_right" : "" + request.GET['add_right'],
+			# "gst_left" : "" + request.GET['gst_left'],
+			# "gst_right" : "" + request.GET['gst_right'],
+			# "state_left" : "" + request.GET['state_left'],
+			# "code_left" : "" + request.GET['code_left'],
+			# "state_right" : "" + request.GET['state_right'],
+			# "code_right" : "" + request.GET['code_right'],
+			# "e_way_bill_left" : "" + request.GET['e_way_bill_left'],
+			# "e_way_bill_right" : "" + request.GET['e_way_bill_right'],
+			# "qty_type" : "" + request.GET['qty_type'],
+			# "sr_no" : "" + request.GET['sr_no'],
+			# "pr_desc" : "" + request.GET['pr_desc'],
+			# "hsn_code" : "" + request.GET['hsn_code'],
+			# "grade" : "" + request.GET['grade'],
 			"qty" : request.GET['qty'],
 			"rate" : request.GET['rate'],
 			"total" : request.GET['total'],
-			"total1" : request.GET['total1'],
-			"SGST" : request.GET['SGST'],
+			# "total1" : request.GET['total1'],
 			"CGST" : request.GET['CGST'],
-			"IGST" : request.GET['IGST'],
+			"SGST" : request.GET['SGST'],
+			# "IGST" : request.GET['IGST'],
 			"sgst" : request.GET['sgst'],
 			"cgst" : request.GET['cgst'],
-			"igst" : request.GET['igst'],
+			# "igst" : request.GET['igst'],
 			"round_off" : request.GET['round_off'],
-			"grand_total" : request.GET['grand_total'],
+			# "grand_total" : request.GET['grand_total'],
 			"grand_total_in_words" : "" + request.GET['grand_total_in_words'],
-			"acc_no" : "" + request.GET['acc_no'],
-			"ifsc_code" : "" + request.GET['ifsc_code'],
+			# "acc_no" : "" + request.GET['acc_no'],
+			# "ifsc_code" : "" + request.GET['ifsc_code'],
 		}
+
+		
+		data['date']=datetime.datetime.strptime(data['date'], "%Y-%m-%d").strftime("%d / %m / %Y")
 
 		pdf = render_to_pdf('app/pdf_template.html', data)
 		return HttpResponse(pdf, content_type='application/pdf')
