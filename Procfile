@@ -1,1 +1,1 @@
-web: gunicorn app.wsgi
+web: gunicorn blank_django.wsgi
