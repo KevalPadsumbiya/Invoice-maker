@@ -92,7 +92,7 @@ class ViewPDF(View):
 
 		
 		data['date']=datetime.datetime.strptime(data['date'], "%Y-%m-%d").strftime("%d / %m / %Y")
-		data['BASE_DIR'] = BASE_DIR
+		data['BASE_DIR'] = BASE_DIR + "\PTSans-Regular.ttf"
 		pdf = render_to_pdf('app/pdf_template.html', data)
 		return HttpResponse(pdf, content_type='application/pdf')
 
@@ -113,7 +113,7 @@ class DownloadPDF(View):
 
 def index(request):
 	context = {}
-	print("base dir: ",BASE_DIR)
+	print("base dir: ",BASE_DIR + '/PTSans-Regular.ttf')
 	files = [ f for f in os.listdir(BASE_DIR) if os.path.isfile(os.path.join(BASE_DIR,f)) ]
 	print("files in base dir: ", files)
 	return render(request, 'app/index.html', context)
