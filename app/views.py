@@ -92,7 +92,7 @@ class ViewPDF(View):
 
 		
 		data['date']=datetime.datetime.strptime(data['date'], "%Y-%m-%d").strftime("%d / %m / %Y")
-		data['BASE_DIR'] = BASE_DIR + "/PTSans-Regular.ttf"
+		data['BASE_DIR'] =  "/app/PTSans-Regular.ttf"
 		pdf = render_to_pdf('app/pdf_template.html', data)
 		return HttpResponse(pdf, content_type='application/pdf')
 
