@@ -5,6 +5,7 @@ from django.template.loader import get_template
 from django.views import View
 from xhtml2pdf import pisa
 import requests
+import os
 
 from blank_django.settings import BASE_DIR
 
@@ -113,4 +114,6 @@ class DownloadPDF(View):
 def index(request):
 	context = {}
 	print("base dir: ",BASE_DIR)
+	files = [ f for f in os.listdir(BASE_DIR) if os.path.isfile(os.path.join(BASE_DIR,f)) ]
+	print("files in base dir: ", files)
 	return render(request, 'app/index.html', context)
