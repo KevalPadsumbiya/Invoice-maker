@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0a3e*wdy)lqg=x_$4l#ni3!n=!d5+fp1vkl+4m89jr0f*sl@is'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','keval-bill-maker.herokuapp.com']
 

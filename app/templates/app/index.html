@@ -33,212 +33,178 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
-<style>
-
-		body{
-			background: #292929;
-			color: white;
+	<style>
+		body {
+			background: #f2f2f2;
+			font-size: 16px;
 			/* font-family: 'Raleway', sans-serif; */
+			color: black;
+			font-weight: 550;
 			font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 		}
 
-		select,option
-		{
-			color: black;
-			height: 30px;
-			border-radius: 4px;
-		}
-
-		input[type="number"], input[type="text"],input[type="date"]
-		{
-			border-radius: 4px;
-			margin-left: 10px;
-			color: black;
-			border-radius: 2px;
-			border: none;
+		input[type='text'],
+		input[type="number"],
+		input[type="date"] {
+			font-size: 17px;
 			text-align: center;
+		}
+
+		table {
+			width: 600px;
+		}
+
+		.labels {
+			width: 215px;
+			text-align: center;
+		}
+
+		.fields {
+			width: 385px;
+		}
+
+		tr {
+			height: 45px;
+		}
+
+		select,
+		option {
+			color: black;
 			height: 30px;
-			font-size: 18px;
-			outline: none;
-			transition: 0.3s;
+			border-radius: 4px;
 		}
 
-		.submit_button
-		{
-			border-radius: 2px;
-			border:1px solid #353535;
-			background: #292929;
-			height: 50px;
-			width: 200px;
-			transition: 0.5s;
-		}
-
-		.submit_button:hover
-		{
-			background: #363636;
-		}
-		
-		.glow-on-hover {
-			width: 200px;
-			height: 50px;
-			border: none;
-			outline: none;
-			color: #fff;
-			border:1px solid #353535;
-			background: #292929;
-			cursor: pointer;
-			position: relative;
-			z-index: 0;
-			border-radius: 2px;
-		}
-
-		.glow-on-hover:before {
-			content: '';
-			background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-			position: absolute;
-			top: -2px;
-			left:-2px;
-			background-size: 500%;
-			z-index: -1;
-			filter: blur(5px);
-			width: calc(100% + 5px);
-			height: calc(100% + 5px);
-			animation: glowing 20s linear infinite;
-			opacity: 0;
-			transition: opacity .3s ease-in-out;
-			border-radius: 0px;
-		}
-
-
-		.glow-on-hover:active {
-			color: #000
-		}
-
-		.glow-on-hover:active:after {
-			background: transparent;
-		}
-
-		.glow-on-hover:hover:before {
-			opacity: 1;
-		}
-
-		.glow-on-hover:after {
-			z-index: -1;
-			content: '';
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			background: #292929;
-			left: 0;
-			top: 0;
-			border-radius: 0px;
-		}
-
-		@keyframes glowing {
-			0% { background-position: 0 0; }
-			50% { background-position: 400% 0; }
-			100% { background-position: 0 0; }
-		}
-		
-		
-
+		/* background: #1E1E1E; */
 	</style>
 </head>
 <!-- style="background: url('https://i.postimg.cc/BbBNdgTf/watermark.jpg');" -->
 <body>
 
 	<center>
-		<h1><b>INVOICE GENERATOR</b></h1>
-		<br>
-		<br>
-		<div style="background: #1E1E1E; padding: 10px; border-radius: 5px;">
+		<h1><b>INVOICE MAKER</b></h1>
+		<div style="padding: 10px; border-radius: 5px;">
 			<form method="get" action="{% url 'pdf_view' %}" target="_blank">
-				
 				{% csrf_token %}
-				<!-- <input type="text" id="i1" onfocus="changeStyles(this.id)" onblur="revert(this.id)"> -->
-				<br>
-				<br>
-				<label>Party Name : </label>
-				<select name="party_name" id="party_name" onchange="selectOps()" class="custom-select" style="width: 200px; font-size: 16px;">
-					<option value="Kailash Chemicals" selected>Kailash Chemicals</option>
-					<option value="Romest Selichem L.L.P">Romest Selichem L.L.P</option>
-					<option value="Radhe Minerals">Radhe Minerals</option>
-					<option value="Positive Micron L.L.P">Positive Micron L.L.P</option>
-					<option value="Viva Minerals">Viva Minerals</option>
-					<option value="Coral Gold Tiles PVT LTD">Coral Gold Tiles PVT LTD</option>
-					<option value="Amora Tiles PVT LTD">Amora Tiles PVT LTD</option>
-					<option value="Strong Mineral">Strong Mineral</option>
-					<option value="Madhusudan Ceramic">Madhusudan Ceramic</option>
-					<option value="Nexa Minerals LLP">Nexa Minerals LLP</option>
-					<option value="Meracus Mineral LLP">Meracus Mineral LLP</option>
-					<option value="Shivam Flexo LLP">Shivam Flexo LLP</option>
-					<option value="Om Industries">Om Industries</option>
-					<option value="Skysun Industries">Skysun Industries</option>
-				</select>
-				<br><br>
-				<label>Address : </label>
-					<select name="address" id="address" onchange="selectOps1()" class="custom-select" style="width: 450px; font-size: 16px;">
-						<option value="Point No-1, City industrial, Halvad highway, Morbi" selected>Kailash  - Point No-1, City industrial, Halvad highway, Morbi</option>
-						<option value="Survey No-26P-2, At-Bela Rangpar, Morbi">Romest - Survey No.-26P-2, At-Bela Rangpar, Morbi</option>
-						<option value="Maruti Ind., Plot No-3, Jetpar road, Morbi">Radhe - Maruti Ind., Plot No-3, Jetpar road, Morbi</option>
-						<option value="Survey No-35/36, Kandala road, Timbadi patiya, Morbi">Positive - Survey No-35/36, Kandala road, Timbadi patiya, Morbi</option>
-						<option value="Survey No-263/P3, Nani Vavdi, Morbi">Viva - Survey No-263/P3, Nani Vavdi, Morbi</option>
-						<option value="NH 8-A, Laghdhirpur Road, Morbi-2">Coral - NH 8-A, Laghdhirpur Road, Morbi-2</option>
-						<option value="Sartanpar Road, Ta-Wankaner, Morbi">Sartanpar Road, Ta-Wankaner, Morbi</option>
-						<option value="Unchi Mandal, Survey No 93 P3, Plot No 7, Morbi">Strong - Unchi Mandal, Survey No 93 P3, Plot No 7, Morbi</option>
-						<option value="Near Solarium Ceramic, Jetpar Road, At Jasmatgadh">Madhusudan - Near Solarium Ceramic, Jetpar Road, At Jasmatgadh</option>
-						<option value="Plot No-2, Survey No-93 P 3, Kailash Industries, Halvad Road, Unchi Mandal, Morbi">Nexa - Plot No-2, Survey No-93 P 3, Kailash Industries</option>
-						<option value="Old Ghutu Road, Near Sona Ceramic, Morbi">Meracus - Old Ghutu Road, Near Sona Ceramic, Morbi</option>
-						<option value="Lakhdhir Nagar Road, Survey No- 54/2P4, Plot No-22, Morbi">Shivam - Lakhdhir Nagar Road, Survey No- 54/2P4, Plot No-22, Morbi</option>
-						<option value="Plot no-8, Metro Estate, Lakhdhirpur Road, Morbi">Om - Plot no-8, Metro Estate, Lakhdhirpur Road, Morbi</option>
-						<option value="Pipdi Bela Road, Morbi">Skysun - Pipdi Bela Road, Morbi</option>
-					</select>
-				<br><br>
-				<label>GSTIN : </label>
-					<select name="gstno" id="gstno" onchange="selectOps2()" class="custom-select" style="width: 250px; font-size: 16px;">
-						<option value="24AAOFK6625R1ZK" selected>Kailash - 24AAOFK6625R1ZK</option>
-						<option value="24AAVFR826IRIZ2">Romest - 24AAVFR8261RIZ2</option>
-						<option value="24AAVFR6079B1ZV">Radhe - 24AAVFR6079B1ZV</option>
-						<option value="24AAUFP5272BI25">Positive - 24AAUFP5272B1Z5</option>
-						<option value="24AAPFV2187E1ZY">Viva - 24AAPFV2187E1ZY</option>
-						<option value="24AADCC2024L1Z0">Coral - 24AADCC2024L1Z0</option>
-						<option value="24AALCA6805H1ZQ">Amora - 24AALCA6805H1ZQ</option>
-						<option value="24ADIFS1338N1ZS">Strong - 24ADIFS1338N1ZS</option>
-						<option value="24AAXFM7835Q1Z5">Madhusudan - 24AAXFM7835Q1Z5</option>
-						<option value="24AANFN9740K1ZQ">Nexa - 24AANFN9740K1ZQ</option>
-						<option value="24AAZFM7085Q1Z1">Meracus - 24AAZFM7085Q1Z1</option>
-						<option value="24AEMFS7551J1ZJ">Shivam - 24AEMFS7551J1ZJ</option>
-						<option value="24AAEFO3175G1ZE">Om - 24AAEFO3175G1ZE</option>
-						<option value="24ADHFS1296C1Z7">Skysun - 24ADHFS1296C1Z7</option>
-					</select>
-				<br><br>
-				<label>Invoice No. : </label><input type="number" name="invoice_no"><br><br>
-				<label>Date : </label><input type="date" name="date"><br><br>
-				<!-- <label>Truck No. : </label><input type="text" name="truck_no"><br><br> -->
-				<!-- <hr> -->
 				
-				<!-- <label>Particulars : </label><input type="text" name="" value="Silica + Transport"><br><br> -->
-				<!-- <label>HSN Code : </label><input type="text" name=""><br><br> -->
-				<label>Qty. : </label><input type="number" id="qty" placeholder="" style="text-align: center;"  name="qty" onchange oninput="cal_total()"><br><br>
-				<label>Rate : </label><input type="number" id="rate" placeholder="" style="text-align: center;"  name="rate" onchange oninput="cal_total()"><br><br>
-				<!-- <label>Amount : </label><input type="number" name=""><br><br> -->
-				<label>Total : </label><input type="number" id="total" placeholder="-" style="text-align: center; font-weight: bolder;"  name="total" readonly><br><br>
-				<label>SGST : <input type="number" step="0.1" value=2.5 style="text-align: center; width: 150px;" id="SGST" name="SGST" onchange oninput="cal_total()"> %
-				= 	<input type="number" id="sgst" placeholder="-" style="text-align: center; width: 150px;" name="sgst" readonly>
-				<br><br> 	
-				<label>CGST : </label><input type="number" step="0.1" value=2.5 style="text-align: center; width: 150px;" id="CGST" name="CGST" onchange oninput="cal_total()"> %
-				= <input type="number" id="cgst"  placeholder="-" style="text-align: center; width: 150px;" name="cgst" readonly>
-				<br><br>
-				
-				<!-- <label>IGST : </label><input type="number" step="0.1" value=.5 style="text-align: center;" id="IGST" name="IGST" onchange oninput="cal_total()"> %<br><br> -->
-				<label>Grand Total : </label><input type="number" name="round_off" id="round_off" placeholder="-" readonly><br><br>
-				<label>Grand Total in words : </label><br>
-				<input type="text" id="grand_total_in_words" placeholder="-" style="text-align: center; width:100%" name="grand_total_in_words" readonly>
-				<br><br>
-				<button class="glow-on-hover" type="submit">View invoice</button>
-
+				<table>
+					<tr>
+						<td class="labels">Party name</td>
+						<td class="fields">
+							<select name="party_name" id="party_name" onchange="selectOps()" class="custom-select" style="width: 100%; font-size: 16px;">
+								<option value="Kailash Chemicals" selected>Kailash Chemicals</option>
+								<option value="Romest Selichem L.L.P">Romest Selichem L.L.P</option>
+								<option value="Radhe Minerals">Radhe Minerals</option>
+								<option value="Positive Micron L.L.P">Positive Micron L.L.P</option>
+								<option value="Viva Minerals">Viva Minerals</option>
+								<option value="Coral Gold Tiles PVT LTD">Coral Gold Tiles PVT LTD</option>
+								<option value="Amora Tiles PVT LTD">Amora Tiles PVT LTD</option>
+								<option value="Strong Mineral">Strong Mineral</option>
+								<option value="Madhusudan Ceramic">Madhusudan Ceramic</option>
+								<option value="Nexa Minerals LLP">Nexa Minerals LLP</option>
+								<option value="Meracus Mineral LLP">Meracus Mineral LLP</option>
+								<option value="Shivam Flexo LLP">Shivam Flexo LLP</option>
+								<option value="Om Industries">Om Industries</option>
+								<option value="Skysun Industries">Skysun Industries</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="labels">Address</td>
+						<td class="fields">
+							<select name="address" id="address" onchange="selectOps1()" class="custom-select" style="width: 100%; font-size: 16px;">
+								<option value="Point No-1, City industrial, Halvad highway, Morbi" selected>Kailash  - Point No-1, City industrial, Halvad highway, Morbi</option>
+								<option value="Survey No-26P-2, At-Bela Rangpar, Morbi">Romest - Survey No.-26P-2, At-Bela Rangpar, Morbi</option>
+								<option value="Maruti Ind., Plot No-3, Jetpar road, Morbi">Radhe - Maruti Ind., Plot No-3, Jetpar road, Morbi</option>
+								<option value="Survey No-35/36, Kandala road, Timbadi patiya, Morbi">Positive - Survey No-35/36, Kandala road, Timbadi patiya, Morbi</option>
+								<option value="Survey No-263/P3, Nani Vavdi, Morbi">Viva - Survey No-263/P3, Nani Vavdi, Morbi</option>
+								<option value="NH 8-A, Laghdhirpur Road, Morbi-2">Coral - NH 8-A, Laghdhirpur Road, Morbi-2</option>
+								<option value="Sartanpar Road, Ta-Wankaner, Morbi">Sartanpar Road, Ta-Wankaner, Morbi</option>
+								<option value="Unchi Mandal, Survey No 93 P3, Plot No 7, Morbi">Strong - Unchi Mandal, Survey No 93 P3, Plot No 7, Morbi</option>
+								<option value="Near Solarium Ceramic, Jetpar Road, At Jasmatgadh">Madhusudan - Near Solarium Ceramic, Jetpar Road, At Jasmatgadh</option>
+								<option value="Plot No-2, Survey No-93 P 3, Kailash Industries, Halvad Road, Unchi Mandal, Morbi">Nexa - Plot No-2, Survey No-93 P 3, Kailash Industries</option>
+								<option value="Old Ghutu Road, Near Sona Ceramic, Morbi">Meracus - Old Ghutu Road, Near Sona Ceramic, Morbi</option>
+								<option value="Lakhdhir Nagar Road, Survey No- 54/2P4, Plot No-22, Morbi">Shivam - Lakhdhir Nagar Road, Survey No- 54/2P4, Plot No-22, Morbi</option>
+								<option value="Plot no-8, Metro Estate, Lakhdhirpur Road, Morbi">Om - Plot no-8, Metro Estate, Lakhdhirpur Road, Morbi</option>
+								<option value="Pipdi Bela Road, Morbi">Skysun - Pipdi Bela Road, Morbi</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="labels">GSTIN</td>
+						<td class="fields">
+							<select name="gstno" id="gstno" onchange="selectOps2()" class="custom-select" style="width: 100%; font-size: 16px;">
+								<option value="24AAOFK6625R1ZK" selected>Kailash - 24AAOFK6625R1ZK</option>
+								<option value="24AAVFR826IRIZ2">Romest - 24AAVFR8261RIZ2</option>
+								<option value="24AAVFR6079B1ZV">Radhe - 24AAVFR6079B1ZV</option>
+								<option value="24AAUFP5272BI25">Positive - 24AAUFP5272B1Z5</option>
+								<option value="24AAPFV2187E1ZY">Viva - 24AAPFV2187E1ZY</option>
+								<option value="24AADCC2024L1Z0">Coral - 24AADCC2024L1Z0</option>
+								<option value="24AALCA6805H1ZQ">Amora - 24AALCA6805H1ZQ</option>
+								<option value="24ADIFS1338N1ZS">Strong - 24ADIFS1338N1ZS</option>
+								<option value="24AAXFM7835Q1Z5">Madhusudan - 24AAXFM7835Q1Z5</option>
+								<option value="24AANFN9740K1ZQ">Nexa - 24AANFN9740K1ZQ</option>
+								<option value="24AAZFM7085Q1Z1">Meracus - 24AAZFM7085Q1Z1</option>
+								<option value="24AEMFS7551J1ZJ">Shivam - 24AEMFS7551J1ZJ</option>
+								<option value="24AAEFO3175G1ZE">Om - 24AAEFO3175G1ZE</option>
+								<option value="24ADHFS1296C1Z7">Skysun - 24ADHFS1296C1Z7</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="labels">Invoice No</td>
+						<td class="fields"><input type="number" name="invoice_no" class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">Date</td>
+						<td class="fields"><input type="date" name="date" class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">Qty</td>
+						<td class="fields"><input type="number" id="qty" placeholder="" style="text-align: center;"  name="qty" onchange oninput="cal_total()" class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">Rate</td>
+						<td class="fields"><input type="number" id="rate" placeholder="" style="text-align: center;"  name="rate" onchange oninput="cal_total()" class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">Total</td>
+						<td class="fields"><input type="number" id="total" placeholder="-" style="text-align: center; font-weight: bolder;"  name="total" readonly class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">
+							<table style="width: 100%;">
+								<tr>
+									<td style="width: 38%;"></td>
+									<td style="width: 25%;">SGST(%)</td>
+									<td><input type="number" step="0.1" value=2.5 id="SGST" style="width:70px" name="SGST" onchange oninput="cal_total()" class="form-control"></td>
+								</tr>
+							</table>
+						</td>
+						<td class="fields"><input type="number" id="sgst" placeholder="-" name="sgst" readonly class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">
+							<table style="width: 100%;">
+								<tr>
+									<td style="width: 38%;"></td>
+									<td style="width: 25%;">CGST(%)</td>
+									<td><input type="number" step="0.1" value=2.5 id="CGST" style="width:70px" name="CGST" onchange oninput="cal_total()" class="form-control"></td>
+								</tr>
+							</table>
+						</td>
+						<td class="fields"><input type="number" id="cgst"  placeholder="-" name="cgst" readonly class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">Grand total</td>
+						<td class="fields"><input type="number" name="round_off" id="round_off" placeholder="-" readonly class="form-control"></td>
+					</tr>
+					<tr>
+						<td class="labels">Grand total in words</td>
+						<td class="fields"><input type="text" id="grand_total_in_words" placeholder="-" style="text-align: center; width:100%" name="grand_total_in_words" readonly class="form-control"></td>
+					</tr>
+				</table>
 				<br>
-				<br>	
+				<input type="submit" class="btn btn-success" value="View invoice"/>
 			</form>
 
 			<script>
