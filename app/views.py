@@ -6,6 +6,8 @@ from django.views import View
 from xhtml2pdf import pisa
 import requests
 
+from blank_django.settings import BASE_DIR
+
 def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
 	html  = template.render(context_dict)
@@ -89,7 +91,7 @@ class ViewPDF(View):
 
 		
 		data['date']=datetime.datetime.strptime(data['date'], "%Y-%m-%d").strftime("%d / %m / %Y")
-
+		data['BASE_DIR'] = BASE_DIR
 		pdf = render_to_pdf('app/pdf_template.html', data)
 		return HttpResponse(pdf, content_type='application/pdf')
 
