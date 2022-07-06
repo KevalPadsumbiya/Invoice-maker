@@ -112,4 +112,5 @@ class DownloadPDF(View):
 
 def index(request):
 	context = {}
+	print(BASE_DIR)
 	return render(request, 'app/index.html', context)
